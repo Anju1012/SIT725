@@ -4,28 +4,27 @@
   "description": "week 3 prac",
   "main": "server.js",
   "scripts": {
-"start": "node server.js"
-},
-"repository": {
-"type": "git",
-"url": "https://github.com/Anju1012/week3.git"
-},
-"keywords": [
-"Nodejs",
-"Express",
-"Materialize",
-"HTML",
-"JS",
-"CSS"
-],
-"author": "Anjali Sannithi",
-"license": "MIT",
-"bugs": {
-"url": "https://github.com/Anju1012/week3.git/issues"
-},
-"homepage": "https://github.com/Anju1012/week3.git#readme",
-"dependencies": {
-"express": "^4.17.1"
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Anju1012/week3.git"
+  },
+  "keywords": [
+    "Nodejs",
+    "Express",
+    "Materialize",
+    "HTML",
+    "JS",
+    "CSS"
+  ],
+  "author": "Anjali Sannithi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Anju1012/week3.git/issues"
+  },
+  "homepage": "https://github.com/Anju1012/week3.git#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
-}
-
