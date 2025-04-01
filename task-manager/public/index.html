@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+
+    <!-- MaterializeCSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo">Task Manager</a>
+            <ul id="nav-mobile" class="right">
+                <li><a class="modal-trigger btn" href="#taskModal">Add Task</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Task List -->
+    <div class="container">
+        <div class="row" id="task-list"></div>
+    </div>
+
+    <!-- Modal for Adding Tasks -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <h4>Add Task</h4>
+            <form id="task-form">
+                <div class="input-field">
+                    <input type="text" id="task-title" required>
+                    <label for="task-title">Task Title</label>
+                </div>
+                <div class="input-field">
+                    <textarea id="task-desc" class="materialize-textarea" required></textarea>
+                    <label for="task-desc">Description</label>
+                </div>
+                <div class="input-field">
+                    <input type="date" id="task-date" required>
+                    <label for="task-date">Due Date</label>
+                </div>
+                <div class="input-field">
+                    <select id="task-priority">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                    <label>Priority</label>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="modal-close btn-flat">Cancel</a>
+                    <button type="submit" class="btn">Add Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
