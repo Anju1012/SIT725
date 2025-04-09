@@ -1,0 +1,18 @@
+{
+  "name": "task-manager-mvc",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "Start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "chai": "^5.2.0",
+    "express": "^5.1.0",
+    "mocha": "^11.1.0",
+    "request": "^2.88.2"
+  }
+}
