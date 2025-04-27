@@ -20,7 +20,7 @@ mongoose.connection.on("connected", () => {
 
 // Task Schema
 const TaskSchema = new mongoose.Schema({
-  title: String,
+  title: { type: String, required: [true, "Title is required"] },
   description: String,
   dueDate: String,
   priority: String,
@@ -30,16 +30,29 @@ const Task = mongoose.model("Task", TaskSchema);
 
 // API Endpoints
 app.get("/api/tasks", async (req, res) => {
-  const tasks = await Task.find({});
-  res.json({ statusCode: 200, data: tasks, message: "Success" });
+  try {
+    const tasks = await Task.find({});
+    res.json({ statusCode: 200, data: tasks, message: "Success" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.post("/api/tasks", async (req, res) => {
-  const newTask = new Task(req.body);
-  await newTask.save();
-  res.status(201).json({ statusCode: 201, message: "Task Added", data: newTask });
+  try {
+    if (typeof req.body !== "object" || Array.isArray(req.body)) {
+      return res.status(400).json({ error: "Invalid request body" });
+    }
+    if (!req.body.title) {
+      return res.status(400).json({ error: "Title is required" });
+    }
+    const newTask = new Task(req.body);
+    await newTask.save();
+    res.status(201).json({ statusCode: 201, message: "Task Added", data: newTask });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
-
 
 // Start Server
 const PORT = process.env.PORT || 3000;
@@ -47,4 +60,4 @@ if (require.main === module) {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
 
-module.exports = app; // Export for testing
+module.exports = app;
