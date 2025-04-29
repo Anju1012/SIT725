@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
 
     <!-- Navbar -->
@@ -46,7 +47,8 @@
                     <label for="task-due-date">Due Date</label>
                 </div>
                 <div class="input-field">
-                    <select id="task-priority">
+                    <select id="task-priority" required>
+                        <option value="" disabled selected>Choose priority</option>
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
                         <option value="High">High</option>
@@ -63,19 +65,18 @@
 
     <!-- JavaScript -->
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./socket-client.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="/js/scripts.js"></script>
-    
-
-
     <script>
         // Initialize Materialize components
         $(document).ready(function() {
-            $('.modal').modal(); // Initialize modal
-            $('select').formSelect(); // Initialize select dropdown
+            $('.modal').modal();
+            $('select').formSelect();
         });
+
+        // Connect to the server via Socket.IO
+        const socket = io();
 
         // Fetch tasks from the server
         function fetchTasks() {
@@ -120,26 +121,29 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `name=${taskName}&description=${taskDescription}&dueDate=${taskDueDate}&priority=${taskPriority}`,
             })
-                .then(() => {
-                    fetchTasks(); // Reload tasks after adding a new one
-                    document.getElementById('task-name').value = ''; // Clear input
-                    document.getElementById('task-description').value = ''; // Clear input
-                    document.getElementById('task-due-date').value = ''; // Clear input
-                    document.getElementById('task-priority').value = 'Low'; // Clear input
-                })
-                .catch(error => console.error('Error adding task:', error));
+            .then(() => {
+                // Reload tasks after adding a new one
+                fetchTasks();
+                // Clear the form
+                document.getElementById('task-name').value = '';
+                document.getElementById('task-description').value = '';
+                document.getElementById('task-due-date').value = '';
+                document.getElementById('task-priority').selectedIndex = 0;
+                $('select').formSelect(); // Reinitialize materialize select
+                $('#taskModal').modal('close'); // Close modal
+            })
+            .catch(error => console.error('Error adding task:', error));
+        });
+
+        // Listen for "taskAdded" event from server and refresh the task list
+        socket.on('taskAdded', (task) => {
+            console.log('New Task Added:', task);
+            fetchTasks();
         });
 
         // Initial fetch of tasks
         fetchTasks();
     </script>
-    <script>
-        //let socket = io();
-socket.on('number', (msg) => {
-console.log('Random number: ' + msg);
-})
-    </script>
-    
-    
+
 </body>
 </html>

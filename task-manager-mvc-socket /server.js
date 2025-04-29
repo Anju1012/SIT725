@@ -13,6 +13,7 @@ const io = socketIO(server); // Socket.IO bound to server
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static('public'));
 
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/taskManagerSocket', {
